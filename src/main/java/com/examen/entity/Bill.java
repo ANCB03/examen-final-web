@@ -1,6 +1,7 @@
 package com.examen.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,10 +13,11 @@ import java.util.Date;
 @Table(name = "bill")
 public class Bill implements Serializable {
     @Id
+    @GeneratedValue
     private int id;
 
     private Date date_bill;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id",insertable = false,updatable = false)
     private User user_id;
