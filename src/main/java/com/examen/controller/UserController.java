@@ -23,10 +23,12 @@ public class UserController {
     public List<User> getUsers(){
         return userRepository.findAll();
     }
-    
+
 
     @PostMapping("/{user}/bills")
-    public Bill guardar(@RequestBody Bill bill,@PathVariable int user) {
+    public Bill guardar(@RequestBody Bill bill,@PathVariable String user) {
+        User usuario = userRepository.findMovimientos(user);
+        bill.setUser_id(usuario);
         billRepository.save(bill);
         return bill;
     }
@@ -43,4 +45,16 @@ public class UserController {
 
     }
 
+    @GetMapping("{user}/bills/{bill_id}")
+    public Bill getMovimiento(@PathVariable String user, @PathVariable int bill_id){
+        User administrador = userRepository.findMovimientos(user);
+
+        for(Bill prueba: administrador.getMovimientos()){
+            if(prueba.getId()==bill_id){
+                return prueba;
+            }
+        }
+
+        return null;
+    }
 }

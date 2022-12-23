@@ -13,7 +13,7 @@ import java.util.Date;
 @Table(name = "bill")
 public class Bill implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
     private Date date_bill;
